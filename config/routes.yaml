@@ -1,0 +1,13 @@
+controllers:
+    resource: ../src/Api/
+    defaults: { _format: json }
+    type: annotation
+    prefix: /api
+
+kernel:
+    resource: ../src/Kernel.php
+    type: annotation
+
+
+api_login_check:
+    path: /api/login_check
