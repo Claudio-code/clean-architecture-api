@@ -16,3 +16,5 @@ rm:
 migrate-diff:
 	cli/console doctrine:migrations:diff
 
+test:
+	cli/tests

@@ -6,12 +6,15 @@ use App\Domain\Entity\Client as ClientDomain;
 use App\Infrastructure\Persistence\Entity\Client;
 use App\Infrastructure\Persistence\Exception\ClientAlreadyExistsInTheDatabaseException;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 
 /** @extends AbstractRepository<Client> */
 class ClientRepository extends AbstractRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(
+        private PaginatorInterface $paginator,
+        ManagerRegistry $registry
+    ) {
         parent::__construct($registry, Client::class);
     }
 
