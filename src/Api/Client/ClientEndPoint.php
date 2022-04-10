@@ -4,6 +4,8 @@ namespace App\Api\Client;
 
 use App\Application\Client\CreateClientInputData;
 use App\Application\Client\CreateClientUseCase;
+use App\Application\Client\FindAllClientInputData;
+use App\Application\Client\FindAllClientUseCase;
 use App\Infrastructure\Form\ClientForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,9 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class ClientEndPoint extends AbstractController
 {
     #[Route(path: "/client", methods: Request::METHOD_GET)]
-    public function findAll(): JsonResponse
+    public function findAll(Request $request, FindAllClientUseCase $useCase): JsonResponse
     {
-        return $this->json('client ok');
+        $input = new FindAllClientInputData(
+            page: $request->query->get('page', 1),
+            size: $request->query->get('page', 5),
+        );
+        return $this->json($useCase->findAll($input));
     }
 
     #[Route(path: "/client", methods: Request::METHOD_POST)]
