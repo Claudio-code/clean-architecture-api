@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\src\Feature\Application\Client;
+namespace App\Tests\src\Feature\Application\Client\FindAll;
 
-use App\Application\Client\FindAllClientInputData;
+use App\Application\Client\FindAll\FindAllClientInputData;
 use PHPUnit\Framework\TestCase;
 
 class FindAllClientInputDataTest extends TestCase

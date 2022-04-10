@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\src\Feature\Application\Client;
+namespace App\Tests\src\Feature\Application\Client\Create;
 
-use App\Application\Client\CreateClientUseCase;
+use App\Application\Client\Create\CreateClientUseCase;
 use App\Domain\Exception\EmptyValueException;
 use App\Domain\Exception\InvalidEmailException;
 use App\Infrastructure\Persistence\Entity\Client;

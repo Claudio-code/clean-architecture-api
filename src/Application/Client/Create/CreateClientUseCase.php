@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Client;
+namespace App\Application\Client\Create;
 
 use App\Domain\Entity\Client as ClientDomain;
 use App\Infrastructure\Persistence\Entity\Client;

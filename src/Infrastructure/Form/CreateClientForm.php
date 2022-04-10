@@ -2,12 +2,12 @@
 
 namespace App\Infrastructure\Form;
 
-use App\Application\Client\CreateClientInputData;
+use App\Application\Client\Create\CreateClientInputData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ClientForm extends AbstractType
+class CreateClientForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

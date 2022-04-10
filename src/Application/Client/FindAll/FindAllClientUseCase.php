@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Client;
+namespace App\Application\Client\FindAll;
 
 use App\Infrastructure\Persistence\Repository\ClientRepository;
 
