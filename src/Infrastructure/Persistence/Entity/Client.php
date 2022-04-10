@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[Entity(repositoryClass: ClientRepository::class)]
 #[Table(name: "clients")]
-class Client
+class Client implements \JsonSerializable
 {
     #[Id, Column(type: "uuid", unique: true)]
     #[GeneratedValue(strategy: "CUSTOM")]
@@ -64,5 +64,14 @@ class Client
     {
         $this->email = $email;
         return $this;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+        ];
     }
 }
