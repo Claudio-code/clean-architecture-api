@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[Entity(repositoryClass: UserRepository::class)]
 #[Table(name: "users")]
@@ -22,9 +24,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private int $id;
 
     #[Column(type: Types::STRING, length: 255)]
+    #[NotBlank]
     private string $name;
 
     #[Column(type: Types::STRING, length: 255)]
+    #[Email]
+    #[NotBlank]
     private string $email;
 
     #[Column(type: Types::DATETIME_MUTABLE)]
@@ -34,9 +39,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private DateTimeInterface $updated_at;
 
     #[Column(type: Types::STRING, length: 255)]
+    #[NotBlank]
     private string $password;
 
     #[Column(type: Types::STRING, length: 255)]
+    #[NotBlank]
     private string $roles;
 
     public function __construct()

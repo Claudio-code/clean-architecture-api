@@ -25,14 +25,7 @@ class UserRepository extends AbstractRepository
         $user->setRoles($userDomain->getRole());
         $user->setPassword($userDomain->getPassword());
 
-        $this->beginTransaction();
-        try {
-            $this->persist($user);
-        } catch (\Exception $exception) {
-            $this->rollBack();
-            throw $exception;
-        }
-        $this->commit();
+        $this->persistWithTransaction($user);
         return $user;
     }
 }

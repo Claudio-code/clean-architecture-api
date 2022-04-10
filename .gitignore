@@ -8,8 +8,14 @@
 /var/
 /vendor/
 /.composer/
+/.idea/
 ###< symfony/framework-bundle ###
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 .rnd
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###

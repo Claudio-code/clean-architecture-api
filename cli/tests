@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker exec -it clean-architecture-api ./vendor/bin/simple-phpunit

@@ -3,19 +3,19 @@
 namespace App\Domain\Entity;
 
 use App\Application\User\CreateUserInputData;
+use App\Domain\Common\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class User implements PasswordAuthenticatedUserInterface
 {
     private string $name;
-    private string $email;
+    private Email $email;
     private string $password;
     private string $role;
 
     public function __construct(private UserPasswordHasherInterface $passwordHasher)
     {
-
     }
 
     public function setProperties(CreateUserInputData $inputData): void
@@ -36,7 +36,7 @@ class User implements PasswordAuthenticatedUserInterface
 
     private function setEmail(string $email): void
     {
-        $this->email = $email;
+        $this->email = new Email($email);
     }
 
     private function setName(string $name): void
