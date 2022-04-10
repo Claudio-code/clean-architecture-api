@@ -11,6 +11,6 @@ class DomainException extends \Exception
 
     public function __construct()
     {
-        parent::__construct(self::MESSAGE, self::CODE);
+        parent::__construct($this::MESSAGE, $this::CODE);
     }
 }
