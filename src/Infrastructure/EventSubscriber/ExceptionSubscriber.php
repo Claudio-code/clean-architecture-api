@@ -2,6 +2,9 @@
 
 namespace App\Infrastructure\EventSubscriber;
 
+use App\Domain\Exception\DomainException;
+use App\Infrastructure\Persistence\Exception\ClientAlreadyExistsInTheDatabaseException;
+use App\Infrastructure\Persistence\Exception\PersistenceException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,18 +44,36 @@ class ExceptionSubscriber implements EventSubscriberInterface
     private function formatAndReturnJson(\Throwable $exception): JsonResponse
     {
         $headers = [];
-        $genericError = match ($exception::class) {
+        $genericError = match (get_class($exception)) {
             HttpExceptionInterface::class => $this->formatterHttpExceptionInterface($exception, $headers),
             AuthenticationException::class => $this->formatterAuthenticationException($exception),
-            default => [
-                'status' => JsonResponse::HTTP_INTERNAL_SERVER_ERROR,
-                'error' => $exception->getMessage(),
-                'type' => $exception::class,
-                'file' => $exception->getFile(),
-                'line' => $exception->getLine(),
-            ],
+            DomainException::class, PersistenceException::class,
+            ClientAlreadyExistsInTheDatabaseException::class => $this->formatterCustomException($exception),
+            default => $this->formatterDefaultException($exception),
         };
         return new JsonResponse($genericError, $genericError['status'], $headers);
+    }
+
+    private function formatterCustomException(\Exception $exception): array
+    {
+        return [
+            'status' => $exception->getCode(),
+            'error' => $exception->getMessage(),
+            'type' => $exception::class,
+            'file' => $exception->getFile(),
+            'line' => $exception->getLine(),
+        ];
+    }
+
+    private function formatterDefaultException(\Exception $exception): array
+    {
+        return [
+            'status' => JsonResponse::HTTP_INTERNAL_SERVER_ERROR,
+            'error' => $exception->getMessage(),
+            'type' => $exception::class,
+            'file' => $exception->getFile(),
+            'line' => $exception->getLine(),
+        ];
     }
 
     private function formatterHttpExceptionInterface(HttpExceptionInterface $exception, array &$headers): array
