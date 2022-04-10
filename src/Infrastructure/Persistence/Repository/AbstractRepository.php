@@ -8,6 +8,19 @@ use Doctrine\DBAL\LockMode;
 
 abstract class AbstractRepository extends ServiceEntityRepository
 {
+    /** @throws Exception  */
+    public function persistWithTransaction(object &$entity): void
+    {
+        $this->beginTransaction();
+        try {
+            $this->persist($entity);
+        } catch (\Exception $exception) {
+            $this->rollBack();
+            throw $exception;
+        }
+        $this->commit();
+    }
+
     public function lock(object $entity): void
     {
         $this->getEntityManager()->lock($entity, LockMode::PESSIMISTIC_READ);
