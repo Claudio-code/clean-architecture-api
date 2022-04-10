@@ -13,7 +13,7 @@ class Email implements \Stringable
         $this->email = $this->setEmail($email);
     }
 
-    public function setEmail(string $email): string
+    private function setEmail(string $email): string
     {
         return match (filter_var($email, FILTER_VALIDATE_EMAIL) !== false) {
             true => $email,
