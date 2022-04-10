@@ -5,22 +5,12 @@ namespace App\Infrastructure\EventSubscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class ExceptionSubscriber implements EventSubscriberInterface
 {
-    private UrlGeneratorInterface $urlGenerator;
-    private FlashBagInterface $flashBag;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator)
-    {
-        $this->urlGenerator = $urlGenerator;
-    }
-
     /** @return array<string, array<string, int>> */
     public static function getSubscribedEvents(): array
     {
