@@ -13,9 +13,9 @@ class Email implements \Stringable
         $this->email = $this->setEmail($email);
     }
 
-    public function setEmail(string $email): void
+    public function setEmail(string $email): string
     {
-        $this->email = match (filter_var($email, FILTER_VALIDATE_EMAIL) !== false) {
+        return match (filter_var($email, FILTER_VALIDATE_EMAIL) !== false) {
             true => $email,
             default => throw new InvalidEmailException(),
         };
