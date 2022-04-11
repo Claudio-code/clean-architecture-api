@@ -14,6 +14,8 @@
         "knplabs/knp-paginator-bundle": "^5.8",
         "lcobucci/jwt": "^4.1",
         "lexik/jwt-authentication-bundle": "^2.15",
+        "nelmio/api-doc-bundle": "^4.8",
+        "symfony/asset": "6.0.*",
         "symfony/console": "6.0.*",
         "symfony/dotenv": "6.0.*",
         "symfony/flex": "^2",
@@ -23,9 +25,11 @@
         "symfony/proxy-manager-bridge": "6.0.*",
         "symfony/runtime": "6.0.*",
         "symfony/security-bundle": "6.0.*",
+        "symfony/twig-bundle": "6.0.*",
         "symfony/uid": "6.0.*",
         "symfony/validator": "6.0.*",
-        "symfony/yaml": "6.0.*"
+        "symfony/yaml": "6.0.*",
+        "zircote/swagger-php": "^4.2"
     },
     "config": {
         "allow-plugins": {
