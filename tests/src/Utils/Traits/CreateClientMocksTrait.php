@@ -2,7 +2,7 @@
 
 namespace App\Tests\src\Utils\Traits;
 
-use App\Application\Client\CreateClientInputData;
+use App\Application\Client\Create\CreateClientInputData;
 use App\Infrastructure\Persistence\Entity\Client;
 use Symfony\Component\Uid\UuidV4;
 

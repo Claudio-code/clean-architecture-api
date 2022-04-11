@@ -33,6 +33,19 @@ class ClientRepository extends AbstractRepository
         return $client;
     }
 
+    public function update(ClientDomain $clientDomain): Client
+    {
+        /** @var Client $clientFound */
+        $clientFound = $this->findOneByEmail($clientDomain->getEmail());
+        if (!($clientFound instanceof Client)) {
+            return $this->create($clientDomain);
+        }
+        $clientFound->setName($clientDomain->getName());
+        $clientFound->setEmail($clientDomain->getEmail());
+        $this->persistWithTransaction($clientFound);
+        return $clientFound;
+    }
+
     public function findOneByEmail(string $email): ?Client
     {
         return $this->findOneBy(['email' => $email]);

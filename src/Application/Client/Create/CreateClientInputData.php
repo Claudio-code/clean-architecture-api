@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Client;
+namespace App\Application\Client\Create;
 
 class CreateClientInputData
 {
