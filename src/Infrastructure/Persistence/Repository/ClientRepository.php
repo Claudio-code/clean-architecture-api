@@ -3,11 +3,12 @@
 namespace App\Infrastructure\Persistence\Repository;
 
 use App\Domain\Entity\Client as ClientDomain;
+use App\Domain\Entity\ClientPathAndRemove;
 use App\Infrastructure\Persistence\Entity\Client;
 use App\Infrastructure\Persistence\Exception\ClientAlreadyExistsInTheDatabaseException;
+use App\Infrastructure\Persistence\Exception\ClientNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
-use Knp\Component\Pager\Pagination\SlidingPagination;
 use Knp\Component\Pager\PaginatorInterface;
 
 /** @extends AbstractRepository<Client> */
@@ -44,6 +45,16 @@ class ClientRepository extends AbstractRepository
         $clientFound->setEmail($clientDomain->getEmail());
         $this->persistWithTransaction($clientFound);
         return $clientFound;
+    }
+
+    public function delete(ClientPathAndRemove $clientPathAndRemove): void
+    {
+        /** @var Client $clientFound */
+        $clientFound = $this->findOneByEmail($clientPathAndRemove->getEmail());
+        if (!($clientFound instanceof Client)) {
+            throw new ClientNotFoundException();
+        }
+        $this->remove($clientFound);
     }
 
     public function findOneByEmail(string $email): ?Client
