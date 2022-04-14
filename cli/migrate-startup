@@ -1,0 +1,22 @@
+#!/bin/bash
+
+PURPLE='\033[0;35m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+CALL_ME_HAND='\U1F919'
+LIKE='\U1F44D'
+
+println () {
+  local message="$1"
+  echo -e "\n ${message} \n"
+}
+
+
+println "Bom dia ${USER^} td bem ? ${CALL_ME_HAND}"
+println "Agora vamos entrar no ${GREEN}sleep${NC} para que o banco possa iniciar e depois vamos rodar os testes para garantir que está tudo funcionando."
+println "Se não voce vai ter q rodar ${RED}make migrate${NC} no terminal para inserir as tabelas no banco"
+sleep 20
+println "Voltamos dos${PURPLE} reclames do plim plim${NC} ${LIKE} ${NC}"
+docker exec -it clean-architecture-api php bin/console doctrine:migrations:migrate --no-interaction
