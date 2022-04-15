@@ -8,6 +8,7 @@ use App\Infrastructure\Form\UserForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserEndpoint extends AbstractController
@@ -19,6 +20,6 @@ class UserEndpoint extends AbstractController
         $form = $this->createForm(UserForm::class, $input);
         $form->submit($request->request->all());
         $useCase->create($input);
-        return $this->json($input->getEmail());
+        return $this->json([], Response::HTTP_NO_CONTENT);
     }
 }
