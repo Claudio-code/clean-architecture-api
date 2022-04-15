@@ -6,7 +6,7 @@ use App\Infrastructure\Persistence\Repository\ClientRepository;
 
 class FindAllClientUseCase
 {
-    public function __construct(private ClientRepository $clientRepository)
+    public function __construct(private readonly ClientRepository $clientRepository)
     {
     }
 

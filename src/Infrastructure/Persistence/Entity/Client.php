@@ -10,24 +10,30 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
+use OpenApi\Attributes\Property;
+use OpenApi\Attributes\Schema;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+#[Schema]
 #[Entity(repositoryClass: ClientRepository::class)]
 #[Table(name: "clients")]
 class Client implements \JsonSerializable
 {
+    #[Property(type: "string", default: "1ecbcf2e-511a-6d22-aeb5")]
     #[Id, Column(type: "uuid", unique: true)]
     #[GeneratedValue(strategy: "CUSTOM")]
     #[CustomIdGenerator(class: UuidGenerator::class)]
     private Uuid $id;
 
+    #[Property(default: "carlos")]
     #[Column(type: Types::STRING, length: 255)]
     #[NotBlank]
     private string $name;
 
+    #[Property(default: "carlos@gmail.com")]
     #[Column(type: Types::STRING, length: 255)]
     #[Email]
     #[NotBlank]
