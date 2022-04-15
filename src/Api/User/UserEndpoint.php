@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserEndpoint extends AbstractController
 {
+    #[Post(tags: ["User"])]
     #[Route(path: "/user", methods: Request::METHOD_POST)]
     public function create(Request $request, CreateUserUseCase $useCase): JsonResponse
     {
