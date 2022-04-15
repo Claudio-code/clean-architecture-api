@@ -7,22 +7,23 @@ class FindAllClientInputData
     private int $page = 1;
     private int $size = 5;
 
-    public function __construct(int $page, int $size)
+    public function __construct(?int $page, ?int $size)
     {
         $this->setPage($page);
         $this->setSize($size);
     }
-    private function setPage(int $page): void
+
+    private function setPage(?int $page): void
     {
-        if ($page <= 0) {
+        if ($page == null || $page <= 0) {
             return;
         }
         $this->page = $page;
     }
 
-    private function setSize(int $size): void
+    private function setSize(?int $size): void
     {
-        if ($size <= 0) {
+        if ($size == null || $size <= 0) {
             return;
         }
         $this->size = $size;
@@ -30,7 +31,6 @@ class FindAllClientInputData
 
     public function getPage(): int
     {
-
         return $this->page;
     }
 
