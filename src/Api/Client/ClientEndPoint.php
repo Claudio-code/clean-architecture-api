@@ -26,8 +26,8 @@ class ClientEndPoint extends AbstractController
     public function findAll(Request $request, FindAllClientUseCase $useCase): JsonResponse
     {
         $input = new FindAllClientInputData(
-            page: $request->query->get('page', 1),
-            size: $request->query->get('page', 5),
+            page: $request->query->get('page'),
+            size: $request->query->get('size'),
         );
         return $this->json($useCase->findAll($input));
     }
