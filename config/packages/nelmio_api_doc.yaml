@@ -1,4 +1,11 @@
 nelmio_api_doc:
+    models:
+        names:
+            - { alias: CreateClientInputData, type: App\Application\Client\Create\CreateClientInputData }
+            - { alias: LoginInputData, type: App\Infrastructure\Doc\LoginInputData }
+            - { alias: LoginOutputData, type: App\Infrastructure\Doc\LoginOutputData }
+            - { alias: Client, type: App\Infrastructure\Persistence\Entity\Client }
+            - { alias: FindAllClientOutPutData, type: App\Application\Client\FindAll\FindAllClientOutPutData }
     documentation:
         info:
             title: Clean architecture api
