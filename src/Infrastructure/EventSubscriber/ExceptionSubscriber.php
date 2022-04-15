@@ -5,15 +5,19 @@ namespace App\Infrastructure\EventSubscriber;
 use App\Domain\Exception\DomainException;
 use App\Infrastructure\Persistence\Exception\ClientAlreadyExistsInTheDatabaseException;
 use App\Infrastructure\Persistence\Exception\PersistenceException;
+use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Throwable;
 
 class ExceptionSubscriber implements EventSubscriberInterface
 {
+    private const PATTERN_MATCH = '/^\/(_(profiler|wdt)|css|images|js|assets)/';
+
     /** @return array<string, array<string, int>> */
     public static function getSubscribedEvents(): array
     {
@@ -22,12 +26,10 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
     public function onKernelException(ExceptionEvent $event): void
     {
-        $patternMatch = '/^\/(_(profiler|wdt)|css|images|js|assets)/';
         $request = $event->getRequest();
-        if (preg_match($patternMatch, $request->getPathInfo()) || !$this->verifyAsJson($request)) {
+        if (preg_match(self::PATTERN_MATCH, $request->getPathInfo()) || !$this->verifyAsJson($request)) {
             return;
         }
-
         $throwableResponse = $this->formatAndReturnJson($event->getThrowable());
         $event->setResponse($throwableResponse);
     }
@@ -41,7 +43,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
         );
     }
 
-    private function formatAndReturnJson(\Throwable $exception): JsonResponse
+    private function formatAndReturnJson(Throwable $exception): JsonResponse
     {
         $headers = [];
         $genericError = match (get_class($exception)) {
@@ -54,7 +56,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
         return new JsonResponse($genericError, $genericError['status'], $headers);
     }
 
-    private function formatterCustomException(\Exception $exception): array
+    private function formatterCustomException(Exception $exception): array
     {
         return [
             'status' => $exception->getCode(),
@@ -65,7 +67,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
         ];
     }
 
-    private function formatterDefaultException(\Exception $exception): array
+    private function formatterDefaultException(Throwable $exception): array
     {
         return [
             'status' => JsonResponse::HTTP_INTERNAL_SERVER_ERROR,
