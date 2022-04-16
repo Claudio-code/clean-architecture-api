@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Infrastructure\Form;
+namespace App\Api\Form;
 
 use App\Application\Client\Create\CreateClientInputData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreateClientForm extends AbstractType
+class UpdateClientForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('name')
+        $builder->add('id')
+            ->add('name')
             ->add('email');
     }
 

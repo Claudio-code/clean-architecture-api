@@ -2,13 +2,13 @@
 
 namespace App\Api\User;
 
+use App\Api\Form\UserForm;
 use App\Application\User\CreateUserInputData;
 use App\Application\User\CreateUserUseCase;
-use App\Infrastructure\Form\UserForm;
 use OpenApi\Attributes\JsonContent;
 use OpenApi\Attributes\Post;
-use OpenApi\Attributes\Response as OpenApiResponse;
 use OpenApi\Attributes\RequestBody;
+use OpenApi\Attributes\Response as OpenApiResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -2,6 +2,8 @@
 
 namespace App\Api\Client;
 
+use App\Api\Form\CreateClientForm;
+use App\Api\Form\UpdateClientForm;
 use App\Application\Client\Create\CreateClientInputData;
 use App\Application\Client\Create\CreateClientUseCase;
 use App\Application\Client\FindAll\FindAllClientInputData;
@@ -10,16 +12,14 @@ use App\Application\Client\Remove\RemoveClientInputData;
 use App\Application\Client\Remove\RemoveClientUseCase;
 use App\Application\Client\Update\UpdateClientInputData;
 use App\Application\Client\Update\UpdateClientUseCase;
-use App\Infrastructure\Form\CreateClientForm;
-use App\Infrastructure\Form\UpdateClientForm;
 use OpenApi\Attributes\Delete;
 use OpenApi\Attributes\Get;
 use OpenApi\Attributes\JsonContent;
 use OpenApi\Attributes\Parameter;
 use OpenApi\Attributes\Post;
 use OpenApi\Attributes\Put;
-use OpenApi\Attributes\Response as OpenApiResponse;
 use OpenApi\Attributes\RequestBody;
+use OpenApi\Attributes\Response as OpenApiResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
