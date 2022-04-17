@@ -6,6 +6,9 @@ nelmio_api_doc:
             - { alias: LoginOutputData, type: App\Infrastructure\Doc\LoginOutputData }
             - { alias: Client, type: App\Infrastructure\Persistence\Entity\Client }
             - { alias: FindAllClientOutPutData, type: App\Application\Client\FindAll\FindAllClientOutPutData }
+
+            - { alias: CreateProductInputData, type: App\Application\Product\Create\CreateProductInputData }
+            - { alias: ProductOutputData, type: App\Application\Product\Create\ProductOutputData }
     documentation:
         info:
             title: Clean architecture api
