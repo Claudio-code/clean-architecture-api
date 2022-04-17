@@ -48,6 +48,11 @@ class ClientEndPoint extends AbstractController
         return $this->json($useCase->findAll($input));
     }
 
+    #[OpenApiResponse(
+        response: Response::HTTP_CREATED,
+        description: "It route return client created.",
+        x: [new JsonContent(ref: "#/components/schemas/Client")]
+    )]
     #[RequestBody(x: [new JsonContent(ref: "#/components/schemas/CreateClientInputData")])]
     #[Post(tags: ["Client"])]
     #[Route(path: self::ROUTE_PATH, methods: Request::METHOD_POST)]
@@ -56,7 +61,7 @@ class ClientEndPoint extends AbstractController
         $input = CreateClientInputData::makeEmpty();
         $form = $this->createForm(CreateClientForm::class, $input);
         $form->submit($request->request->all());
-        return $this->json($useCase->create($input));
+        return $this->json($useCase->create($input), Response::HTTP_CREATED);
     }
 
     #[RequestBody(x: [new JsonContent(ref: "#/components/schemas/Client")])]
