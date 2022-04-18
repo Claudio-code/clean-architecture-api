@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Application\Product\Create;
+namespace App\Application\Product\Update;
 
-
-use App\Api\Form\ProductForm;
+use App\Api\Form\ProductUpdateForm;
 use App\Application\Common\FormFactory;
 use App\Application\Common\FormValidate;
 use Symfony\Component\HttpFoundation\Request;
 
-class CreateProductInputDataFactory
+class UpdateProductInputDataFactory
 {
-    public static function make(Request $request): CreateProductInputData
+    public static function make(Request $request): UpdateProductInputData
     {
         $jsonContent = $request->request->all();
-        $input = CreateProductInputData::makeEmpty();
+        $input = UpdateProductInputData::makeEmpty();
         $form = FormFactory::create(
             data: $jsonContent,
-            className: ProductForm::class,
+            className: ProductUpdateForm::class,
             entity: $input
         );
         FormValidate::validate($form);

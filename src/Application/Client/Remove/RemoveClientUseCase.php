@@ -2,7 +2,7 @@
 
 namespace App\Application\Client\Remove;
 
-use App\Domain\Entity\ClientPathAndRemove;
+use App\Domain\Entity\Client\ClientPathAndRemove;
 use App\Infrastructure\Persistence\Repository\ClientRepository;
 
 class RemoveClientUseCase

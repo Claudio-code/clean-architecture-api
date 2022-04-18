@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Persistence\Repository;
 
-use App\Domain\Entity\Client as ClientDomain;
-use App\Domain\Entity\ClientPathAndRemove;
+use App\Domain\Entity\Client\Client as ClientDomain;
+use App\Domain\Entity\Client\ClientPathAndRemove;
 use App\Infrastructure\Persistence\Entity\Client;
 use App\Infrastructure\Persistence\Exception\ClientAlreadyExistsInTheDatabaseException;
 use App\Infrastructure\Persistence\Exception\ClientNotFoundException;
@@ -37,9 +37,9 @@ class ClientRepository extends AbstractRepository
     public function update(ClientDomain $clientDomain): Client
     {
         /** @var Client $clientFound */
-        $clientFound = $this->findOneByEmail($clientDomain->getEmail());
+        $clientFound = $this->find($clientDomain->getId());
         if (!($clientFound instanceof Client)) {
-            return $this->create($clientDomain);
+            throw new ClientNotFoundException();
         }
         $clientFound->setName($clientDomain->getName());
         $clientFound->setEmail($clientDomain->getEmail());

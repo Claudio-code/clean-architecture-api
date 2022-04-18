@@ -25,6 +25,6 @@ class ProductOutputData
         $this->id = $id;
         $this->title = $title;
         $this->price = $price;
-        $this->image = $image;
+        $this->image = "http://localhost:8000/uploads/products/$image";
     }
 }

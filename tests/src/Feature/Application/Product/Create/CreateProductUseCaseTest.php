@@ -5,7 +5,7 @@ namespace App\Tests\src\Feature\Application\Product\Create;
 use App\Application\Product\Create\CreateProductUseCase;
 use App\Application\Product\Create\ProductOutputData;
 use App\Domain\Common\UploadFile;
-use App\Domain\Entity\Product;
+use App\Domain\Entity\Product\Product;
 use App\Domain\Exception\EmptyValueException;
 use App\Domain\Exception\InvalidPriceException;
 use App\Infrastructure\Persistence\Repository\ProductRepository;
