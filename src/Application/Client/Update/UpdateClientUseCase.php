@@ -18,7 +18,7 @@ class UpdateClientUseCase
         return $this->clientRepository->update($domain);
     }
 
-    public function toDomain(UpdateClientInputData $inputData): ClientDomain
+    private function toDomain(UpdateClientInputData $inputData): ClientDomain
     {
         return new ClientDomain(
             name: $inputData->getName(),
