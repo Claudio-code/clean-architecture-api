@@ -7,12 +7,15 @@ use App\Infrastructure\Persistence\Entity\Product;
 use App\Infrastructure\Persistence\Exception\ProductAlreadyExistsInTheDatabaseException;
 use App\Infrastructure\Persistence\Exception\ProductNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 
 /** @extends AbstractRepository<Product> */
 class ProductRepository extends AbstractRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(
+        private PaginatorInterface $paginator,
+        ManagerRegistry $registry
+    ) {
         parent::__construct($registry, Product::class);
     }
 
