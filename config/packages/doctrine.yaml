@@ -22,8 +22,7 @@ when@test:
             # "TEST_TOKEN" is typically set by ParaTest
             driver: 'pdo_sqlite'
             memory: true
-            path: :memory
-#            path: '%kernel.project_dir%/test.db'
+            path: '%kernel.project_dir%/test.db'
 
 
 when@prod:
