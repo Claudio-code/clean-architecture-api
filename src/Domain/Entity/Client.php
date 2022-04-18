@@ -7,7 +7,7 @@ use App\Domain\Common\StringValue;
 
 class Client
 {
-    private ?StringValue $id = null;
+    private ?StringValue $id;
     private readonly StringValue $name;
     private readonly Email $email;
 
@@ -21,9 +21,9 @@ class Client
         };
     }
 
-    public function getId(): ?StringValue
+    public function getId(): ?string
     {
-        return $this->id;
+        return $this->id->getValue();
     }
 
     public function getName(): string
