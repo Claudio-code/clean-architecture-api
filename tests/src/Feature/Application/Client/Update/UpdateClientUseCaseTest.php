@@ -3,8 +3,8 @@
 namespace App\Tests\src\Feature\Application\Client\Update;
 
 use App\Application\Client\Update\UpdateClientInputData;
-use App\Domain\Entity\Client as ClientDomain;
 use App\Application\Client\Update\UpdateClientUseCase;
+use App\Domain\Entity\Client\Client as ClientDomain;
 use App\Infrastructure\Persistence\Entity\Client;
 use App\Infrastructure\Persistence\Exception\ClientNotFoundException;
 use App\Infrastructure\Persistence\Repository\ClientRepository;

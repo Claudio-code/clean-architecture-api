@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Domain\Entity;
+namespace App\Domain\Entity\Product;
 
 use App\Application\Product\Create\CreateProductInputData;
+use App\Application\Product\Update\UpdateProductInputData;
 use App\Domain\Common\Price;
 use App\Domain\Common\StringValue;
 use App\Domain\Common\UploadFile;
@@ -13,6 +14,7 @@ class Product
     private const IMAGE_EXTENSIONS = ['png'];
     private const IMAGE_DIRECTORY_SHORTCUT = 'product_dir';
 
+    private ?StringValue $id;
     private StringValue $title;
     private Price $price;
     private UploadedFile $image;
@@ -23,11 +25,16 @@ class Product
     {
     }
 
-    public function setProperties(CreateProductInputData $inputData): void
+    public function setProperties(CreateProductInputData|UpdateProductInputData $inputData): void
     {
+        if ($inputData instanceof UpdateProductInputData) {
+            $this->id = new StringValue($inputData->getId());
+        } else {
+            $this->image = $inputData->getImage();
+        }
+
         $this->title = new StringValue($inputData->getTitle());
         $this->price = new Price($inputData->getPrice());
-        $this->image = $inputData->getImage();
         $this->brand = new StringValue($inputData->getBrand());
     }
 
@@ -62,5 +69,10 @@ class Product
     public function getBrand(): string
     {
         return $this->brand;
+    }
+
+    public function getId(): ?string
+    {
+        return $this->id?->getValue();
     }
 }

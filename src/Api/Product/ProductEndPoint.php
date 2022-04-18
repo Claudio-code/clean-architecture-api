@@ -4,6 +4,8 @@ namespace App\Api\Product;
 
 use App\Application\Product\Create\CreateProductInputDataFactory;
 use App\Application\Product\Create\CreateProductUseCase;
+use App\Application\Product\Update\UpdateProductInputDataFactory;
+use App\Application\Product\Update\UpdateProductUseCase;
 use OpenApi\Attributes\Delete;
 use OpenApi\Attributes\Get;
 use OpenApi\Attributes\JsonContent;
@@ -35,10 +37,18 @@ class ProductEndPoint extends AbstractController
         return $this->json($useCase->create($input), Response::HTTP_CREATED);
     }
 
+    #[OpenApiResponse(
+        response: Response::HTTP_CREATED,
+        description: "It route return product updated.",
+        x: [new JsonContent(ref: "#/components/schemas/ProductOutputData")]
+    )]
+    #[RequestBody(x: [new JsonContent(ref: "#/components/schemas/UpdateProductInputData")])]
     #[Put(tags: ["Product"])]
-    #[Route(path: self::ROUTE_PATH . "/{id}", methods: Request::METHOD_PUT)]
-    public function update(string $id)
+    #[Route(path: self::ROUTE_PATH, methods: Request::METHOD_PUT)]
+    public function update(Request $request, UpdateProductUseCase $useCase): JsonResponse
     {
+        $input = UpdateProductInputDataFactory::make($request);
+        return $this->json($useCase->update($input));
     }
 
     #[Get(tags: ["Product"])]

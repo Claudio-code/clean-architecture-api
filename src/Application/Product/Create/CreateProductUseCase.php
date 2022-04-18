@@ -2,7 +2,7 @@
 
 namespace App\Application\Product\Create;
 
-use App\Domain\Entity\Product;
+use App\Domain\Entity\Product\Product;
 use App\Infrastructure\Persistence\Repository\ProductRepository;
 
 class CreateProductUseCase

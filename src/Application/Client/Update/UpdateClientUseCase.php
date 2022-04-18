@@ -2,7 +2,7 @@
 
 namespace App\Application\Client\Update;
 
-use App\Domain\Entity\Client as ClientDomain;
+use App\Domain\Entity\Client\Client as ClientDomain;
 use App\Infrastructure\Persistence\Entity\Client;
 use App\Infrastructure\Persistence\Repository\ClientRepository;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Entity;
+namespace App\Domain\Entity\Client;
 
 use App\Domain\Common\Email;
 use App\Domain\Common\StringValue;
