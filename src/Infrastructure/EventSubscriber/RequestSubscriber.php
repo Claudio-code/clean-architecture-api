@@ -12,6 +12,7 @@ class RequestSubscriber implements EventSubscriberInterface
     public function onRequestEvent(RequestEvent $event): void
     {
         $request = $event->getRequest();
+        $request->request->add($this->moveFilesToAll($request));
         if ($event->isMainRequest() === false || $request->getContentType() !== 'json') {
             return;
         }
@@ -25,6 +26,11 @@ class RequestSubscriber implements EventSubscriberInterface
             true => throw new BadRequestHttpException('Falha ao interpretar JSON: ' . json_last_error_msg()),
             default => $jsonDecoded,
         };
+    }
+
+    private function moveFilesToAll(Request $request): array
+    {
+        return $request->files->all();
     }
 
     public static function getSubscribedEvents(): array

@@ -2,13 +2,13 @@
 
 namespace App\Api\User;
 
+use App\Api\Form\UserForm;
 use App\Application\User\CreateUserInputData;
 use App\Application\User\CreateUserUseCase;
-use App\Infrastructure\Form\UserForm;
 use OpenApi\Attributes\JsonContent;
 use OpenApi\Attributes\Post;
-use OpenApi\Attributes\Response as OpenApiResponse;
 use OpenApi\Attributes\RequestBody;
+use OpenApi\Attributes\Response as OpenApiResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserEndpoint extends AbstractController
 {
+    #[Post(tags: ["User"])]
     #[Route(path: "/user", methods: Request::METHOD_POST)]
     public function create(Request $request, CreateUserUseCase $useCase): JsonResponse
     {
