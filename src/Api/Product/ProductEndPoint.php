@@ -2,13 +2,16 @@
 
 namespace App\Api\Product;
 
+use App\Application\Common\FindAllPageableInputData;
 use App\Application\Product\Create\CreateProductInputDataFactory;
 use App\Application\Product\Create\CreateProductUseCase;
+use App\Application\Product\FindAll\FindAllProductsUseCase;
 use App\Application\Product\Update\UpdateProductInputDataFactory;
 use App\Application\Product\Update\UpdateProductUseCase;
 use OpenApi\Attributes\Delete;
 use OpenApi\Attributes\Get;
 use OpenApi\Attributes\JsonContent;
+use OpenApi\Attributes\Parameter;
 use OpenApi\Attributes\Post;
 use OpenApi\Attributes\Put;
 use OpenApi\Attributes\RequestBody;
@@ -51,10 +54,22 @@ class ProductEndPoint extends AbstractController
         return $this->json($useCase->update($input));
     }
 
+    #[Parameter(name: 'page', description: "current page where do all the products come from.", in: "query")]
+    #[Parameter(name: "size", description: "number of products per page.", in: "query")]
     #[Get(tags: ["Product"])]
+    #[OpenApiResponse(
+        response: Response::HTTP_CREATED,
+        description: "It route return products pageable.",
+        x: [new JsonContent(ref: "#/components/schemas/FindAllProductsOutputData")]
+    )]
     #[Route(path: self::ROUTE_PATH, methods: Request::METHOD_GET)]
-    public function findAll()
+    public function findAll(Request $request, FindAllProductsUseCase $useCase): JsonResponse
     {
+        $input = new FindAllPageableInputData(
+            page: $request->query->get('page'),
+            size: $request->query->get('size'),
+        );
+        return $this->json($useCase->findAll($input));
     }
 
     #[Get(tags: ["Product"])]

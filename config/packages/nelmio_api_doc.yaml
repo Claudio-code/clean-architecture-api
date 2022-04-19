@@ -10,6 +10,7 @@ nelmio_api_doc:
             - { alias: CreateProductInputData, type: App\Application\Product\Create\CreateProductInputData }
             - { alias: ProductOutputData, type: App\Application\Product\Create\ProductOutputData }
             - { alias: UpdateProductInputData, type: App\Application\Product\Update\UpdateProductInputData }
+            - { alias: FindAllProductsOutputData, type: App\Application\Product\FindAll\FindAllProductsOutputData }
     documentation:
         info:
             title: Clean architecture api
