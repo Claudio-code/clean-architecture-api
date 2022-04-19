@@ -6,6 +6,7 @@ use App\Application\Common\FindAllPageableInputData;
 use App\Application\Product\Create\CreateProductInputDataFactory;
 use App\Application\Product\Create\CreateProductUseCase;
 use App\Application\Product\FindAll\FindAllProductsUseCase;
+use App\Application\Product\FindOne\FindOneProductsUseCase;
 use App\Application\Product\Update\UpdateProductInputDataFactory;
 use App\Application\Product\Update\UpdateProductUseCase;
 use OpenApi\Attributes\Delete;
@@ -72,10 +73,16 @@ class ProductEndPoint extends AbstractController
         return $this->json($useCase->findAll($input));
     }
 
+    #[OpenApiResponse(
+        response: Response::HTTP_CREATED,
+        description: "It route return product of id sent in url.",
+        x: [new JsonContent(ref: "#/components/schemas/ProductOutputData")]
+    )]
     #[Get(tags: ["Product"])]
     #[Route(path: self::ROUTE_PATH . "/{id}", methods: Request::METHOD_GET)]
-    public function findOne(string $id)
+    public function findOne(string $id, FindOneProductsUseCase $useCase): JsonResponse
     {
+        return $this->json($useCase->findOne($id));
     }
 
     #[Delete(tags: ["Product"])]

@@ -3,6 +3,7 @@
 namespace App\Application\Product\FindAll;
 
 use App\Application\Product\Create\ProductOutputData;
+use App\Application\Product\FindOne\FindOneProductsFactory;
 use App\Infrastructure\Persistence\Entity\Product;
 use OpenApi\Attributes\Items;
 use OpenApi\Attributes\Property;
@@ -28,12 +29,7 @@ class FindAllProductsOutputData implements \JsonSerializable
 
     public function addProduct(Product $product): void
     {
-        $productOutPut = new ProductOutputData(
-            id: $product->getId(),
-            title: $product->getTitle(),
-            price: $product->getPrice(),
-            image: $product->getImage()
-        );
+        $productOutPut = FindOneProductsFactory::make($product);
         $this->items[] = $productOutPut;
     }
 
