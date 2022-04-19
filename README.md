@@ -21,3 +21,19 @@ Como o sistema necessita de um login para poder ser acessado ele já vem com um 
 #### Password: 123
 
 
+## Como usar ?
+
+- Fazer o setup do projeto
+```
+ make startup
+```
+
+- Depois rodar as migrations
+```
+ make migrate
+```
+
+- Para rodar os testes
+```
+ make test
+```
