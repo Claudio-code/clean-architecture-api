@@ -7,6 +7,7 @@ use App\Application\Product\Create\CreateProductInputDataFactory;
 use App\Application\Product\Create\CreateProductUseCase;
 use App\Application\Product\FindAll\FindAllProductsUseCase;
 use App\Application\Product\FindOne\FindOneProductsUseCase;
+use App\Application\Product\Remove\RemoveProductUseCase;
 use App\Application\Product\Update\UpdateProductInputDataFactory;
 use App\Application\Product\Update\UpdateProductUseCase;
 use OpenApi\Attributes\Delete;
@@ -85,9 +86,13 @@ class ProductEndPoint extends AbstractController
         return $this->json($useCase->findOne($id));
     }
 
+    #[Delete(description: "Send product id in url to remove him")]
+    #[OpenApiResponse(response: Response::HTTP_NO_CONTENT, description: "Return not content Http code if product is removed.")]
     #[Delete(tags: ["Product"])]
     #[Route(path: self::ROUTE_PATH . "/{id}", methods: Request::METHOD_DELETE)]
-    public function remove(string $id)
+    public function remove(string $id, RemoveProductUseCase $useCase): JsonResponse
     {
+        $useCase->remove($id);
+        return $this->json([], Response::HTTP_NO_CONTENT);
     }
 }

@@ -54,6 +54,15 @@ class ProductRepository extends AbstractRepository
         return $productFound;
     }
 
+    public function delete(string $id): void
+    {
+        $productFound = $this->find($id);
+        if (!($productFound instanceof Product)) {
+            throw new ProductNotFoundException();
+        }
+        $this->remove($productFound);
+    }
+
     public function findOneByOneTitle(string $title): ?Product
     {
         return $this->findOneBy(['title' => $title]);
