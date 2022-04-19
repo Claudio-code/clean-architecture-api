@@ -2,6 +2,7 @@
 
 namespace App\Application\Product\Create;
 
+use App\Application\Product\FindOne\FindOneProductsFactory;
 use App\Domain\Entity\Product\Product;
 use App\Infrastructure\Persistence\Repository\ProductRepository;
 
@@ -19,12 +20,7 @@ class CreateProductUseCase
         $this->product->saveImage();
         try {
             $product = $this->productRepository->create($this->product);
-            return new ProductOutputData(
-                id: $product->getId(),
-                title: $product->getTitle(),
-                price: $product->getPrice(),
-                image: $product->getImage(),
-            );
+            return FindOneProductsFactory::make($product);
         } catch (\Exception $exception) {
             $this->product->deleteImage();
             throw $exception;

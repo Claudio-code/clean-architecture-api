@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Application\Client\FindAll;
+namespace App\Application\Common;
 
-class FindAllClientInputData
+class FindAllPageableInputData
 {
     private int $page = 1;
     private int $size = 5;

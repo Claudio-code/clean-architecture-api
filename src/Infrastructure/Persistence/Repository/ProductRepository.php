@@ -7,6 +7,7 @@ use App\Infrastructure\Persistence\Entity\Product;
 use App\Infrastructure\Persistence\Exception\ProductAlreadyExistsInTheDatabaseException;
 use App\Infrastructure\Persistence\Exception\ProductNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 /** @extends AbstractRepository<Product> */
@@ -56,5 +57,10 @@ class ProductRepository extends AbstractRepository
     public function findOneByOneTitle(string $title): ?Product
     {
         return $this->findOneBy(['title' => $title]);
+    }
+
+    public function findAllPageable(int $page, int $size): PaginationInterface
+    {
+        return $this->paginator->paginate($this->findAll(), $page, $size);
     }
 }

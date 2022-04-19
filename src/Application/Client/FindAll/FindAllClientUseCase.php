@@ -2,6 +2,7 @@
 
 namespace App\Application\Client\FindAll;
 
+use App\Application\Common\FindAllPageableInputData;
 use App\Infrastructure\Persistence\Repository\ClientRepository;
 
 class FindAllClientUseCase
@@ -10,7 +11,7 @@ class FindAllClientUseCase
     {
     }
 
-    public function findAll(FindAllClientInputData $inputData): FindAllClientOutPutData
+    public function findAll(FindAllPageableInputData $inputData): FindAllClientOutPutData
     {
         $clientsPageable = $this->clientRepository->findAllPageable(
             page: $inputData->getPage(),

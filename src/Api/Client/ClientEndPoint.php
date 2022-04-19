@@ -6,12 +6,12 @@ use App\Api\Form\CreateClientForm;
 use App\Api\Form\UpdateClientForm;
 use App\Application\Client\Create\CreateClientInputData;
 use App\Application\Client\Create\CreateClientUseCase;
-use App\Application\Client\FindAll\FindAllClientInputData;
 use App\Application\Client\FindAll\FindAllClientUseCase;
 use App\Application\Client\Remove\RemoveClientInputData;
 use App\Application\Client\Remove\RemoveClientUseCase;
 use App\Application\Client\Update\UpdateClientInputData;
 use App\Application\Client\Update\UpdateClientUseCase;
+use App\Application\Common\FindAllPageableInputData;
 use OpenApi\Attributes\Delete;
 use OpenApi\Attributes\Get;
 use OpenApi\Attributes\JsonContent;
@@ -41,7 +41,7 @@ class ClientEndPoint extends AbstractController
     #[Route(path: self::ROUTE_PATH, methods: Request::METHOD_GET)]
     public function findAll(Request $request, FindAllClientUseCase $useCase): JsonResponse
     {
-        $input = new FindAllClientInputData(
+        $input = new FindAllPageableInputData(
             page: $request->query->get('page'),
             size: $request->query->get('size'),
         );
