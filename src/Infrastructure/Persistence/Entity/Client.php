@@ -90,13 +90,18 @@ class Client implements \JsonSerializable
 
     public function jsonSerialize(): array
     {
+        $favoriteProducts = [];
+        if (isset($this->favoriteProducts)) {
+            $favoriteProducts = $this->favoriteProducts
+                ->map(fn ($item) => FindOneProductsFactory::make($item))
+                ->toArray();
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'favoriteProducts' => $this->favoriteProducts
-                ->map(fn ($item) => FindOneProductsFactory::make($item))
-                ->toArray(),
+            'favoriteProducts' => $favoriteProducts,
         ];
     }
 }

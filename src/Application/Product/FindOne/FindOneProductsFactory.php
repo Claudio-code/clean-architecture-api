@@ -14,6 +14,7 @@ class FindOneProductsFactory
             title: $product->getTitle(),
             price: $product->getPrice(),
             image: $product->getImage(),
+            reviewScore: $product->getReviewScore(),
         );
     }
 }

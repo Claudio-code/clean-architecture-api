@@ -20,12 +20,17 @@ class ProductOutputData implements \JsonSerializable
     #[Property(default: "https://www.tecmint.com/wp-content/uploads/2020/07/logo.png")]
     public readonly string $image;
 
-    public function __construct(string $id, string $title, float $price, string $image)
+    #[Property(default: 5)]
+    public readonly float $reviewScore;
+
+
+    public function __construct(string $id, string $title, float $price, string $image, float $reviewScore = 0.0)
     {
         $this->id = $id;
         $this->title = $title;
         $this->price = $price;
         $this->image = "http://localhost:8000/uploads/products/$image";
+        $this->reviewScore = $reviewScore;
     }
 
     public function jsonSerialize(): array
@@ -35,6 +40,7 @@ class ProductOutputData implements \JsonSerializable
             'title' => $this->title,
             'image' => $this->image,
             'price' => $this->price,
+            'reviewScore' => $this->reviewScore,
         ];
     }
 }

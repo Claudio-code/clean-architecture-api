@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
+use OpenApi\Attributes\Items;
+use OpenApi\Attributes\Property;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -44,8 +46,18 @@ class Product
     #[NotBlank]
     private float $reviewScore;
 
+    #[Property(type: "array", items: new Items(type: 'float'))]
+    #[Column(type: Types::ARRAY, nullable: true)]
+    #[NotBlank]
+    private array $review = [];
+
     #[ManyToOne(targetEntity: Client::class, inversedBy: 'product')]
     private ?Client $client;
+
+    public function __construct()
+    {
+        $this->reviewScore = 0.0;
+    }
 
     public function getId(): Uuid
     {
@@ -115,5 +127,20 @@ class Product
     public function setClient(?Client $client): void
     {
         $this->client = $client;
+    }
+
+    public function getReview(): array
+    {
+        return $this->review;
+    }
+
+    public function setReview(array $review): void
+    {
+        $this->review = $review;
+    }
+
+    public function addReview(float $review): void
+    {
+        $this->review[] = $review;
     }
 }
