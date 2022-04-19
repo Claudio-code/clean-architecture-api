@@ -2,9 +2,8 @@
 
 namespace App\Infrastructure\Persistence\Entity;
 
+use App\Application\Product\FindOne\FindOneProductsFactory;
 use App\Infrastructure\Persistence\Repository\ClientRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\CustomIdGenerator;
@@ -13,6 +12,7 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\PersistentCollection;
 use OpenApi\Attributes\Property;
 use OpenApi\Attributes\Schema;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
@@ -43,12 +43,7 @@ class Client implements \JsonSerializable
     private string $email;
 
     #[OneToMany(mappedBy: 'client', targetEntity: Product::class)]
-    private Collection $favoriteProducts;
-
-    public function __construct()
-    {
-        $this->favoriteProducts = new ArrayCollection();
-    }
+    private PersistentCollection $favoriteProducts;
 
     public function getId(): Uuid
     {
@@ -83,12 +78,12 @@ class Client implements \JsonSerializable
         return $this;
     }
 
-    public function getFavoriteProducts(): ArrayCollection
+    public function getFavoriteProducts(): PersistentCollection
     {
         return $this->favoriteProducts;
     }
 
-    public function setFavoriteProducts(ArrayCollection $favoriteProducts): void
+    public function setFavoriteProducts(PersistentCollection $favoriteProducts): void
     {
         $this->favoriteProducts = $favoriteProducts;
     }
@@ -99,7 +94,9 @@ class Client implements \JsonSerializable
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'favoriteProducts' => $this->favoriteProducts->toArray(),
+            'favoriteProducts' => $this->favoriteProducts
+                ->map(fn ($item) => FindOneProductsFactory::make($item))
+                ->toArray(),
         ];
     }
 }

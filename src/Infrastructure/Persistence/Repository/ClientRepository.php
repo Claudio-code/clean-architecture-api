@@ -7,6 +7,7 @@ use App\Domain\Entity\Client\ClientPathAndRemove;
 use App\Infrastructure\Persistence\Entity\Client;
 use App\Infrastructure\Persistence\Exception\ClientAlreadyExistsInTheDatabaseException;
 use App\Infrastructure\Persistence\Exception\ClientNotFoundException;
+use Doctrine\ORM\PersistentCollection;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -55,6 +56,12 @@ class ClientRepository extends AbstractRepository
             throw new ClientNotFoundException();
         }
         $this->remove($clientFound);
+    }
+
+    public function updateFavoriteList(PersistentCollection $list, Client $client): void
+    {
+        $client->setFavoriteProducts($list);
+        $this->persistWithTransaction($client);
     }
 
     public function findOneByEmail(string $email): ?Client
