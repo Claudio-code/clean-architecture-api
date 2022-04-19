@@ -44,6 +44,10 @@ class Product
     #[NotBlank]
     private float $reviewScore;
 
+    #[Column(type: Types::ARRAY, nullable: true)]
+    #[NotBlank]
+    private array $review = [];
+
     #[ManyToOne(targetEntity: Client::class, inversedBy: 'product')]
     private ?Client $client;
 
@@ -115,5 +119,15 @@ class Product
     public function setClient(?Client $client): void
     {
         $this->client = $client;
+    }
+
+    public function getReview(): array
+    {
+        return $this->review;
+    }
+
+    public function setReview(array $review): void
+    {
+        $this->review = $review;
     }
 }

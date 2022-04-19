@@ -12,6 +12,7 @@ nelmio_api_doc:
             - { alias: UpdateProductInputData, type: App\Application\Product\Update\UpdateProductInputData }
             - { alias: FindAllProductsOutputData, type: App\Application\Product\FindAll\FindAllProductsOutputData }
             - { alias: FavoriteProductsListOfClientInputData, type: App\Application\FavoriteProductsListOfClient\Add\FavoriteProductsListOfClientInputData }
+            - { alias: ReviewInputData, type: App\Application\Review\ReviewInputData }
     documentation:
         info:
             title: Clean architecture api
