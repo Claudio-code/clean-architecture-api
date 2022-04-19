@@ -6,7 +6,7 @@ use OpenApi\Attributes\Property;
 use OpenApi\Attributes\RequestBody;
 
 #[RequestBody]
-class ProductOutputData
+class ProductOutputData implements \JsonSerializable
 {
     #[Property(default: "dqw-dqw-dq-wd-qwf-31-121")]
     public readonly string $id;
@@ -26,5 +26,15 @@ class ProductOutputData
         $this->title = $title;
         $this->price = $price;
         $this->image = "http://localhost:8000/uploads/products/$image";
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'image' => $this->image,
+            'price' => $this->price,
+        ];
     }
 }

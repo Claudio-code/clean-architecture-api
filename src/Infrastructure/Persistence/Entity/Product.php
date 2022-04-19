@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping\CustomIdGenerator;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Component\Uid\Uuid;
@@ -42,6 +43,9 @@ class Product
     #[Column(type: Types::FLOAT, nullable: true)]
     #[NotBlank]
     private float $reviewScore;
+
+    #[ManyToOne(targetEntity: Client::class, inversedBy: 'product')]
+    private ?Client $client;
 
     public function getId(): Uuid
     {
@@ -101,5 +105,15 @@ class Product
     public function setReviewScore(float $reviewScore): void
     {
         $this->reviewScore = $reviewScore;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): void
+    {
+        $this->client = $client;
     }
 }
