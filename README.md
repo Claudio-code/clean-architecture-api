@@ -23,7 +23,7 @@ Como o sistema necessita de um login para poder ser acessado ele já vem com um 
 
 ## Como usar ?
 
-- Fazer o setup do projeto
+- Fazer o setup do projeto : Esse comando alem do setup vai rodar as migrations, os testes e abrir uma aba no seu navegador com o swagger do projeto :blush:.
 ```
  make startup
 ```
