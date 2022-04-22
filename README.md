@@ -30,7 +30,7 @@ Como o sistema necessita de um login para poder ser acessado ele já vem com um 
 
 ## Caso o  comando a cima não rode as migrations e os testes pode rodar os comandos a baixo sem problemas.
 
-- Depois rodar as migrations
+- Para rodar as migrations
 ```
  make migrate
 ```
