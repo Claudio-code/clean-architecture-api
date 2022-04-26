@@ -36,10 +36,10 @@ class ProductReviewUseCase
 
         arsort($allReviews);
         $length = count($allReviews);
-        $half_length = $length / 2;
-        $median_index = (int) $half_length;
+        $halfLength = $length / 2;
+        $medianIndex = (int) $half_length;
 
-        $median = $allReviews[$median_index];
+        $median = $allReviews[$medianIndex];
         $product->setReviewScore($median);
         $this->productRepository->persistWithTransaction($product);
     }
